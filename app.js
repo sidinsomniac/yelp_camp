@@ -22,6 +22,12 @@ app.route('/')
         res.render("home");
     });
 
+app.route('/campgrounds')
+    .get(async (req, res) => {
+        const campgrounds = await Campground.find({});
+        res.render("campgrounds", { campgrounds });
+    });
+
 app.route('/campgroundCreate')
     .get(async (req, res) => {
         const camp = new Campground({
