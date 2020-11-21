@@ -28,6 +28,14 @@ app.route('/campgrounds')
         res.render("campgrounds", { campgrounds });
     });
 
+app.route('/campgrounds/:id')
+    .get(async (req, res) => {
+        const { id } = req.params;
+        const groundDetails = await Campground.findById(id);
+        res.render('campgrounds/show', { groundDetails });
+    });
+
+
 app.route('/campgroundCreate')
     .get(async (req, res) => {
         const camp = new Campground({
