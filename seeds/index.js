@@ -14,18 +14,26 @@ db.once('open', () => {
 const seedDB = async () => {
     await Campground.deleteMany({});
     for (let i = 0; i < 50; i++) {
-        let newIndex = randomIndex(1000);
-        let newCity = new Campground({ title: randomName(), location: `${cities[newIndex].city}, ${cities[newIndex].state}` });
+        let newIndex = randomNumber(1000);
+        const price = randomNumber(25) + 5;
+        let newCity = new Campground(
+            {
+                title: randomName(),
+                location: `${cities[newIndex].city}, ${cities[newIndex].state}`,
+                image: 'https://source.unsplash.com/collection/190727/1600x900',
+                description: 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit natus rem, aliquid commodi sequi unde!',
+                price: price
+            });
         await newCity.save();
     }
 };
 
-const randomIndex = (limit) => {
+const randomNumber = (limit) => {
     return Math.floor(Math.random() * limit);
 };
 
 const randomName = () => {
-    return descriptors[randomIndex(19)] + ' ' + secondaryDescriptors[randomIndex(14)] + places[randomIndex(21)];
+    return descriptors[randomNumber(19)] + ' ' + secondaryDescriptors[randomNumber(14)] + places[randomNumber(21)];
 };
 
 seedDB().then(() => {
